@@ -1,0 +1,107 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "enemy-path-u",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 10.5,
+  "sample": 20,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "position": [
+        {
+          "frame": 0,
+          "value": [
+            -618,
+            460
+          ],
+          "motionPath": [
+            [
+              -270,
+              108,
+              -474,
+              199,
+              -88,
+              27
+            ]
+          ]
+        },
+        {
+          "frame": 2.45,
+          "value": [
+            157,
+            115
+          ],
+          "motionPath": [
+            [
+              388,
+              355,
+              385,
+              224,
+              398,
+              489
+            ]
+          ]
+        },
+        {
+          "frame": 4.55,
+          "value": [
+            138,
+            501
+          ],
+          "motionPath": [
+            [
+              -148,
+              391,
+              -104,
+              491,
+              -196,
+              286
+            ]
+          ]
+        },
+        {
+          "frame": 6.7,
+          "value": [
+            -144,
+            166
+          ],
+          "motionPath": [
+            [
+              233,
+              4,
+              130,
+              -30,
+              339,
+              39
+            ]
+          ]
+        },
+        {
+          "frame": 10.5,
+          "value": [
+            502,
+            346
+          ],
+          "motionPath": []
+        }
+      ]
+    },
+    "comps": {
+      "cc.Widget": {
+        "top": [
+          {
+            "frame": 0,
+            "value": 839
+          },
+          {
+            "frame": 2.45,
+            "value": 839
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
