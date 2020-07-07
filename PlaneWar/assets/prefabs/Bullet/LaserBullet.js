@@ -1,5 +1,7 @@
 let Bullet = require('Bullet');
-
+/**
+ * @description 雷电子弹，每次只能攻击一个目标，优先攻击最近的目标
+ */
 cc.Class({
     extends: Bullet,
 
