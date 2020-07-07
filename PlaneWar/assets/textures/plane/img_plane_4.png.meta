@@ -1,5 +1,5 @@
 {
-  "ver": "2.3.3",
+  "ver": "2.3.4",
   "uuid": "18b20068-e2ec-4211-9852-c56baa45ae9a",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -7,6 +7,8 @@
   "premultiplyAlpha": false,
   "genMipmaps": false,
   "packable": true,
+  "width": 175,
+  "height": 133,
   "platformSettings": {},
   "subMetas": {
     "img_plane_4": {

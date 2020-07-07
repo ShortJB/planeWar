@@ -3,5 +3,6 @@
   "packages": "packages",
   "name": "PlaneWar",
   "id": "75250a33-69c8-494b-9117-0fdde97652a7",
-  "version": "2.2.1"
+  "version": "2.3.3",
+  "isNew": false
 }
