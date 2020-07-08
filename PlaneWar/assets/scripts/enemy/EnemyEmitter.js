@@ -19,10 +19,12 @@ cc.Class({
         node.parent = this.parentNode;
         let enemy = node.getComponent('Enemy');
         enemy.id = this.id;
+        fn.EnemyManager.Instance.addEnemy(node);
         let animation = node.addComponent(cc.Animation);
         animation.addClip(this.clip);
         animation.play(this.clip.name);
         animation.on('finished', () => {
+            fn.EnemyManager.Instance.removeEnemy(node);
             node.destroy();    
         });
     }

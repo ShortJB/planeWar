@@ -23,7 +23,7 @@ cc.Class({
         this._collider.offset.y = length / 2; 
         this._collider.size.height = length;
         this.node.height = length;
-        cc.log(length);
+        //cc.log(length);
     },
 
     onCollisionStay(other, self) {

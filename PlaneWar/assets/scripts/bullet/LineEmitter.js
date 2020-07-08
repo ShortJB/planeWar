@@ -22,22 +22,36 @@ cc.Class({
         let node = cc.instantiate(this.prefab);
         node.position = this.offset.add(this.node.position);
         node.parent = this.node.parent;
-        node.rotation = this.rotation;
+        //node.rotation = this.rotation;
+        node.angle = -this.rotation;
+        let enemy = node.getComponent("Enemy");
+        if(enemy){// 敌机
+            fn.EnemyManager.Instance.addEnemy(node);
+        }
         
+
         //计算终点
         let endPoint = cc.v2();
         endPoint.x = cc.winSize.height * Math.sin(this.rotation * RADIAN);
         endPoint.y = cc.winSize.height * Math.cos(this.rotation * RADIAN);
-        
+
         //计算飞行持续时间
         let distance = endPoint.sub(node.position).mag();
         let duration = distance / this.speed;
 
         //运行动作
         let moveBy = cc.moveBy(duration, endPoint);
-        let removeSelf = cc.removeSelf();
+        let removeSelf = cc.callFunc(this.removeNode, this, node);
+        //let removeSelf = cc.removeSelf();
         let sequence = cc.sequence(moveBy, removeSelf);
         node.runAction(sequence);
+    },
+
+    removeNode(node) {
+        if(node instanceof cc.Node){
+            fn.EnemyManager.Instance.removeEnemy(node);
+            node.destroy();
+        }
     },
 
     update(dt) {

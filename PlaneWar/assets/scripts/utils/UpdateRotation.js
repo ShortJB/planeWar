@@ -22,7 +22,8 @@ let UpdateRotation = cc.Class({
         if (distance > 10) {
             let rotation = getRotation(this.samplePoint, this.node.position, this.offsetRotation);
             this.samplePoint = this.node.position;
-            this.node.rotation = rotation;
+            //this.node.rotation = rotation;
+            this.node.angle = - rotation;
         }
     }
 });

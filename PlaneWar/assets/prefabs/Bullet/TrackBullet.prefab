@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Bullet",
+    "_name": "TrackBullet",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -43,8 +43,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 60
+      "width": 34,
+      "height": 120
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -62,8 +62,8 @@
         0,
         0,
         1,
-        1,
-        1,
+        0.5,
+        0.5,
         1
       ]
     },
@@ -107,8 +107,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 138
+      "width": 47,
+      "height": 106
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -126,8 +126,8 @@
         0,
         0,
         1,
-        0.5,
-        0.5,
+        1,
+        1,
         1
       ]
     },
@@ -140,12 +140,12 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 2,
-    "groupIndex": 2,
+    "_groupIndex": 0,
+    "groupIndex": 0,
     "_id": ""
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "da8eeXxi3BBzbK6H15riqNz",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -160,7 +160,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "d9beec43-50b7-4062-bd80-c795b085b3c0"
+      "__uuid__": "9ebf8851-5b4d-49dc-85a4-2809b6deedf5"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -173,9 +173,16 @@
     "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
-    "_atlas": {
-      "__uuid__": "207e5215-63ae-46e8-9b96-88293622d017"
-    },
+    "_atlas": null,
+    "spriteFrames": [
+      {
+        "__uuid__": "9ebf8851-5b4d-49dc-85a4-2809b6deedf5"
+      },
+      {
+        "__uuid__": "523ed214-cfea-438b-a903-86f654d42ae0"
+      }
+    ],
+    "_index": 0,
     "_id": ""
   },
   {
@@ -184,9 +191,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6e78e0b9-a5f5-4cf4-b114-43e8434ac1a4"
+      "__uuid__": "51815757-9bc2-47ae-a5c6-f9af3b965eeb"
     },
-    "fileId": "b4iae0HDxFfaTPpW2mGnFF",
+    "fileId": "93f7QjxaJB3Lv1T9jfkr7a",
     "sync": false
   },
   {
@@ -201,24 +208,25 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -2
+      "y": 0
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 27,
-      "height": 58
+      "width": 34,
+      "height": 80
     },
     "_id": ""
   },
   {
-    "__type__": "65363va6p5JIKe44ET7ocYs",
+    "__type__": "d327929df1HcbDLmmPO4Vzx",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "damage": 5,
+    "bulletSpeed": 400,
+    "damage": 100,
     "_id": ""
   },
   {
@@ -227,9 +235,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6e78e0b9-a5f5-4cf4-b114-43e8434ac1a4"
+      "__uuid__": "51815757-9bc2-47ae-a5c6-f9af3b965eeb"
     },
-    "fileId": "6e8nSas/dALqTMjhhmYsgN",
+    "fileId": "f1s8J19cNPloPED1XYxl/C",
     "sync": false
   }
 ]

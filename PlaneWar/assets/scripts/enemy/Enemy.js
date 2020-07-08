@@ -37,6 +37,7 @@ cc.Class({
     },
 
     start() {
+        this.isDie_ =false;
         this._collider = this.node.getComponent(cc.Collider);
     },
 
@@ -46,8 +47,18 @@ cc.Class({
         progressBar.progress = this._hp / this.maxHP;
     },
 
+    /**
+     * 是否已经死亡
+     * @returns {boolean}
+     */
+    get_die() {
+        return this.isDie_;
+    },
+
     _playDestroy() {
         //this.node.stopAllActions();
+        this.isDie_ = true;
+        fn.EnemyManager.Instance.removeEnemy(this.node);
         this._collider.enabled = false;
         let fadeOut = cc.fadeOut(0.5);
         let scaleTo = cc.scaleTo(0.3, 0.1);
