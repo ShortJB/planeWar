@@ -17,17 +17,21 @@ cc.Class({
 
     onLoad() {
         this.schedule(this._emmitNode, this.rate);
-        
+
     },
 
     _emmitNode() {
-        let node = cc.instantiate(this.bullet_);
+        let node = fn.PoolManager.Instance.get_node(this.bullet_);
         node.position = this.offset.add(this.node.position);
         node.parent = this.node.parent;
         node.angle = -this.rotation;
+        // let node = cc.instantiate(this.bullet_);
+        // node.position = this.offset.add(this.node.position);
+        // node.parent = this.node.parent;
+        // node.angle = -this.rotation;
     },
 
-    
+
     update: function (dt) {
         if (this.spin === 0) {
             return;

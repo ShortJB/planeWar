@@ -30,10 +30,18 @@ cc.Class({
     },
 
     onLoad() {
+        this.reset();
+    },
+
+    reset() {
+        /** 是否已经死亡 */
         this.isDie_ = false;
         /** 是否已经有追踪目标 */
         this.ishadTarget_ = false;
-        this.bullet = this.node;
+        /** 追踪目标 */
+        this.target_ = undefined;
+        /** 切换子弹图片 0：正常 1：爆炸 */
+        this.set_bullet_frame(0);
     },
 
     update: function (dt) {
@@ -47,10 +55,10 @@ cc.Class({
             return;
         }
 
-        // 下一标
+        // 如果当前追踪目标无效，寻找下一追踪目标
         if (this.ishadTarget_) {// 已有目标
-            if (this.isValidNode(this.target)) { // 目标有效
-                if (!this.filter(this.target)) {
+            if (this.isValidNode(this.target_)) { // 目标有效
+                if (!this.filter(this.target_)) {
                     // 下一个目标
                     this.ishadTarget_ = false;
                 }
@@ -60,7 +68,7 @@ cc.Class({
         }
 
         // 当前目标
-        let target_node = this.ishadTarget_ ? this.target : this.get_target();
+        let target_node = this.ishadTarget_ ? this.target_ : this.get_target();
         let targetPos = cc.v2();
 
         if (!this.isValidNode(target_node)) {// 失去追踪目标
@@ -70,36 +78,51 @@ cc.Class({
             let angle = -this.node.angle / 180 * Math.PI;
             targetPos = cc.v2(pos.x + sideLength * Math.sin(angle), pos.y + sideLength * Math.cos(angle)); // endx = x + sin()
         } else {
-            targetPos = this.target.position;
+            targetPos = this.target_.position;
         }
 
         let bulletPos = this.node.position;
         //单位化向量
         let normalizeVec = targetPos.subtract(bulletPos).normalizeSelf();
 
-        this.bullet.x += normalizeVec.x * this.bulletSpeed * dt;
-        this.bullet.y += normalizeVec.y * this.bulletSpeed * dt;
+        this.node.x += normalizeVec.x * this.bulletSpeed * dt;
+        this.node.y += normalizeVec.y * this.bulletSpeed * dt;
         // 角度变化以y轴正方向为起点，逆时针角度递增 
         // 360° = 2Π弧度  
         // 1弧度 = 360°/ 2Π = 180°/Π = 180 / Math.PI
         // Π = Math.PI
         //根据朝向计算出夹角弧度
         this.node.angle = cc.v2(0, 1).signAngle(normalizeVec) * 180 / Math.PI;
+        if (this.isValidNode(target_node)) {
+            let rect = target_node.getBoundingBox();
+            if (rect.contains(this.node.position)) {
+                let enemy = target_node.getComponent('Enemy');
+                if (enemy) {
+                    this._startDamage(enemy);
+                }
+            }
+        }
     },
 
+    /**
+     * 销毁子弹
+     */
     hitTheTarget() {
         this.isDie_ = true;
         // 爆炸图片
         this.set_bullet_frame(1);
         this.scheduleOnce(() => {
-            this.node.destroy();
+            this.reset();
+            fn.PoolManager.Instance.put_node(this.node)
         }, 0.2);
     },
 
     /**
+     * 获取追踪目标
      * @returns {cc.Node | undefined}
      */
     get_target() {
+        // 所有的敌机
         enemyTemp = fn.EnemyManager.Instance.getEnemys();
         let pos = this.node.position;
         let distance = Number.MAX_SAFE_INTEGER;
@@ -110,11 +133,12 @@ cc.Class({
             let target = enemyTemp[key];
             //let enemy = node.getComponent("Enemy");
             posTemp = target.position;
-            // 不符合条件
+            // 不符合追踪条件
             if (!this.filter(target) || !this.isValidNode(target)) {
                 continue;
             }
 
+            // 寻找最近的目标
             distanceTemp = posTemp.sub(pos).mag()
             if (distance >= distanceTemp) {
                 distance = distanceTemp;
@@ -125,18 +149,15 @@ cc.Class({
         if (target_node) {
             this.ishadTarget_ = true;
         }
-        this.target = target_node;
+        this.target_ = target_node;
 
         return target_node;
     },
 
-    onCollisionEnter(other, self) {
-        let enemy = other.getComponent('Enemy');
-        if (enemy) {
-            this._startDamage(enemy);
-        }
-    },
-
+    /**
+     * 子弹伤害
+     * @param {} target 
+     */
     _startDamage(target) {
         if (target.hp) {
             target.hp -= this.damage;
@@ -168,7 +189,8 @@ cc.Class({
     filter(target) {
         let target_pos = target.position;
         // 屏幕外
-        if (Math.abs(target_pos.y) > (cc.winSize.height / 2) || Math.abs(target_pos.x) > (cc.winSize.width / 2)) {
+        let offset = cc.v2(40, 40); // 飞出屏幕外40
+        if (Math.abs(target_pos.y) > (cc.winSize.height / 2 + offset.x) || Math.abs(target_pos.x) > (cc.winSize.width / 2 + offset.y)) {
             return false;
         }
 
@@ -184,7 +206,7 @@ cc.Class({
     },
 
     /**
-     * 设置子弹样式
+     * 设置子弹图片(0：正常 1：爆炸)
      * @param {boolean} value 
      */
     set_bullet_frame(value) {
@@ -193,7 +215,5 @@ cc.Class({
         if (spriteEx) {
             spriteEx.index = value;
         }
-    }
-
-
+    },
 });
